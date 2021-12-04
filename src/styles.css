@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+  body {
+    --text-color: #222;
+    --bkg-color: #fff;
+    --btn-txt-color: white;
+    --btn-bg-color: rgb(11, 88, 160);
+    --panel-header-color: rgb(199, 210, 219);
+  }
+  body.dark-theme {
+    --text-color: #eee;
+    --bkg-color: #252222;
+    --btn-txt-color: rgb(46, 43, 43);
+    --btn-bg-color: rgb(20, 211, 195);
+    --panel-header-color: rgb(0, 50, 94);
+  }
+
+  
+  body {
+    background-color: var(--bkg-color);
+  }
+  
+  h1, h2, h3, h4
+  p {
+    color: var(--text-color);
+  }
+
+  .panel-title {
+      color: var(--text-color)
+  }
+
+  .panel > .panel-heading {
+      background-color: var(--panel-header-color);
+  }
+
+  .panel {
+      background-color: var(--bkg-color); 
+  }
+
+  .list-group-item-heading {
+    color: var(--text-color)
+  }
+
+  .list-group-item-text {
+    color: var(--text-color)
+  }
+
+  .list-group-item {
+      background-color: var(--bkg-color);
+  }
