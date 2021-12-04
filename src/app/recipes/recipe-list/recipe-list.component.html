@@ -1,0 +1,21 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Recipes</h3>
+    </div>
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <button (click)="onNew()" class="btn btn-success">New Recipe</button>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <app-recipe-item *ngFor="let recipe of recipes; let i = index" [recipe]="recipe" [index]='i'></app-recipe-item>
+            </div>
+        </div>
+
+    </div>
+</div>
