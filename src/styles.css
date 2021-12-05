@@ -35,11 +35,15 @@
   .list-group-item.active:hover,
   .list-group-item.active:focus {
     background-color: var(--panel-header-color);
+    color: var(--text-color);
   }
 
   a.list-group-item:hover,
-  a.list-group-item:focus {
+  a.list-group-item:focus,
+  li.list-group-item:hover,
+  li.list-group-item:focus {
     background-color: var(--hover);
+    color: var(--text-color);
   }
   
   h1, h2, h3, h4
