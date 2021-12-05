@@ -4,46 +4,52 @@
     --bkg-color: #fff;
     --btn-txt-color: white;
     --btn-bg-color: rgb(11, 88, 160);
-    --panel-header-color: rgb(199, 210, 219);
+    --panel-header-color: rgb(210, 231, 248);
+    --textarea: white;
   }
   body.dark-theme {
     --text-color: #eee;
-    --bkg-color: #252222;
+    --bkg-color: rgb(24, 24, 24);
     --btn-txt-color: rgb(46, 43, 43);
     --btn-bg-color: rgb(20, 211, 195);
     --panel-header-color: rgb(0, 50, 94);
+    --hover: rgb(43, 43, 43);
+    --textarea: rgb(43, 43, 43);
   }
 
-  
-  body {
-    background-color: var(--bkg-color);
+  body,
+  .list-group-item, 
+  .dropdown-menu,
+  .panel { 
+      background-color: var(--bkg-color);
   }
-  
-  h1, h2, h3, h4
-  p {
+
+  textarea.form-control,
+  input.form-control {
+    background-color: var(--textarea);
     color: var(--text-color);
   }
 
-  .panel-title {
-      color: var(--text-color)
+  .panel > .panel-heading,
+  .list-group-item.active,
+  .list-group-item.active:hover,
+  .list-group-item.active:focus {
+    background-color: var(--panel-header-color);
   }
 
-  .panel > .panel-heading {
-      background-color: var(--panel-header-color);
+  a.list-group-item:hover,
+  a.list-group-item:focus {
+    background-color: var(--hover);
   }
-
-  .panel {
-      background-color: var(--bkg-color); 
-  }
-
-  .list-group-item-heading {
-    color: var(--text-color)
-  }
-
+  
+  h1, h2, h3, h4
+  p, label,
+  .dropdown-menu > li > a,
+  .panel-title,
+  .panel-body,
+  a.list-group-item .list-group-item-heading,
+  a.list-group-item,
+  li.list-group-item,
   .list-group-item-text {
-    color: var(--text-color)
-  }
-
-  .list-group-item {
-      background-color: var(--bkg-color);
+    color: var(--text-color);
   }
