@@ -16,6 +16,12 @@ export class HeaderComponent implements OnInit {
     this.dataStorageService.storeRecipes();
   }
 
+  onFetchData() {
+    //note that we don't subscribe to the fetchRecipes here
+    //the Header component shouldn't care about recipes loading
+    this.dataStorageService.fetchRecipes();
+  }
+
   toggleDarkTheme(): void {
     document.body.classList.toggle('dark-theme');
   }
