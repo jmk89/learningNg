@@ -33,9 +33,12 @@ export class AuthComponent {
             .subscribe(response => {
                 console.log(response);
                 this.isLoading = false;
-            }, error => {
-                console.log(error);
-                this.error = "An error occurred"
+            }, errorResponse => {
+                console.log(errorResponse);
+                switch (errorResponse.error.error.message) {
+                    case 'EMAIL_EXISTS':
+                        this.error = "Email already exists"
+                }
                 this.isLoading = false;
             });
         }
