@@ -5,13 +5,14 @@ import { throwError } from 'rxjs';
 
 //defined at https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
 //not a requirement of Angular, but makes life easier to have it defined in an interface
-interface AuthResponseData {
+export interface AuthResponseData {
     kind: string,
     idToken: string,
     email: string,
     refreshToken: string,
     expiresIn: string,
-    localId: string
+    localId: string,
+    registered?: boolean //this is only used for sign in requests, not sign UP requests
 }
 
 @Injectable({providedIn: 'root'})
@@ -45,6 +46,17 @@ export class AuthService {
                 return throwError(errorMessage);
             })
         );
+    }
+
+    login(email: string, password: string) {
+        return this.http.post<AuthResponseData>(
+            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCmN3uD-8g8DD4Yt4Q8bDCosC46y7QBO6A",
+            {
+                email: email,
+                password: password,
+                returnSecureToken: true
+            }
+        )
     }
 
 }
