@@ -1,3 +1,4 @@
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RecipeResolver } from './recipes/recipe-detail/recipe-resolver.service';
@@ -34,7 +35,8 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     WelcomeComponent,
     NoRecipeSelectedComponent,
     RecipeEditComponent,
-    AuthComponent
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
