@@ -9,26 +9,28 @@ export class RecipeService {
     public recipeSelected = new Subject<Recipe>();
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe(
-            // 1,
-            "Classic Marinara", 
-            "From Dolly Sods", 
-            "../../../assets/pictures/classicMarinara.jpg", 
-            [
-                new Ingredient('Pasta Sauce', 1),
-                new Ingredient('Noodles', 500)
-            ]),
-        new Recipe(
-            // 2,
-            "Wacky Marinara", 
-            "From Dolly Sods", 
-            "../../../assets/pictures/classicMarinara.jpg", 
-            [
-                new Ingredient('Garlic Sauce', 1),
-                new Ingredient('Bowties', 400)
-            ])
-    ];
+    // private recipes: Recipe[] = [
+    //     new Recipe(
+    //         // 1,
+    //         "Classic Marinara", 
+    //         "From Dolly Sods", 
+    //         "../../../assets/pictures/classicMarinara.jpg", 
+    //         [
+    //             new Ingredient('Pasta Sauce', 1),
+    //             new Ingredient('Noodles', 500)
+    //         ]),
+    //     new Recipe(
+    //         // 2,
+    //         "Wacky Marinara", 
+    //         "From Dolly Sods", 
+    //         "../../../assets/pictures/classicMarinara.jpg", 
+    //         [
+    //             new Ingredient('Garlic Sauce', 1),
+    //             new Ingredient('Bowties', 400)
+    //         ])
+    // ];
+
+    private recipes: Recipe[] = [];
 
     constructor(private shoppingListService: ShoppingListService) {}
 
