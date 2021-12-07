@@ -1,3 +1,4 @@
+import { AuthComponent } from './auth/auth.component';
 import { RecipesResolverService } from './recipes/recipes-resolver.service';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { NoRecipeSelectedComponent } from './recipes/no-recipe-selected/no-recipe-selected.component';
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
         ] 
     },
     { path: 'shopping-list', component: ShoppingListComponent },
+    { path: 'auth', component: AuthComponent},
     { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found...'} },
     { path: '**', redirectTo: '/not-found' }
 ]

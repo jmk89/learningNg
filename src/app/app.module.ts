@@ -1,3 +1,4 @@
+import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RecipeResolver } from './recipes/recipe-detail/recipe-resolver.service';
 import { DropdownDirective } from './shared/dropdown.directive';
@@ -32,7 +33,8 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     ErrorPageComponent,
     WelcomeComponent,
     NoRecipeSelectedComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
