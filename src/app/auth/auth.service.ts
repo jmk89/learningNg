@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 //defined at https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
 //not a requirement of Angular, but makes life easier to have it defined in an interface
@@ -29,7 +31,20 @@ export class AuthService {
                 password: password,
                 returnSecureToken: true
             }
-        )
+        ).pipe(
+            catchError(errorResponse => {
+                let errorMessage = "An unknown error occurred"
+                //check if the errorResponse has the expected object structure
+                if (!errorResponse.error || !errorResponse.error.error) {
+                    return throwError(errorMessage)
+                }
+                switch (errorResponse.error.error.message) {
+                    case 'EMAIL_EXISTS':
+                        errorMessage = "Email already exists"
+                }
+                return throwError(errorMessage);
+            })
+        );
     }
 
 }
