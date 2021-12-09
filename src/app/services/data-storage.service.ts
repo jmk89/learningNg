@@ -23,41 +23,23 @@ export class DataStorageService {
     }
 
     fetchRecipes() {
-        
-        //don't need an ongoing subscription, only need a single initial subscription
-        //rather than submitting, getting the emitted data, and then unsubscribing,
-        //we do like this, only Take 1 value from the observable and then auto unsubscribe
-        //useful when you only need the user data without caring about user login/logout/etc
-
-        //exhaust map waits for first observable, user observable, to complete.
-        //thereafter, it replaces the user observable with the inner observable within
-        //the exhaustMap operator
-        return this.authService.user.pipe(
-            take(1), 
-            exhaustMap(user => {
-                //now the entire observable switches to this Http observable
-                return this.http.get<Recipe[]>(
-                    //the user token is passed as a query param
-                    //could append in url, however we have optional parameter to http.get methoc 
-                    //which we pass some Http Params
-                    "https://ng-course-recipe-book-6c863-default-rtdb.firebaseio.com/recipes.json",
-                    {
-                        params: new HttpParams().set('auth', user.token)
-                    }
-                );
-            }), 
-            map(recipes => {
+        return this.http.
+            get<Recipe[]>(
+            "https://ng-course-recipe-book-6c863-default-rtdb.firebaseio.com/recipes.json"
+            )
+            .pipe(
+                map(recipes => {
                 return recipes.map(recipe => {
                     return {
-                        ...recipe, 
-                        ingredients: recipe.ingredients ? recipe.ingredients : []
+                    ...recipe, 
+                    ingredients: recipe.ingredients ? recipe.ingredients : []
                     };
                 });
             }),
-            tap(recipes => {
-                this.recipeService.setRecipes(recipes);
-            })
-        );
-    }
+                tap(recipes => {
+                    this.recipeService.setRecipes(recipes);
+                })
+            );
+        }
 
 }
