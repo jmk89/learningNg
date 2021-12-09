@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { catchError, tap } from 'rxjs/operators';
-import { Subject, throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { User } from './user.model';
 
 //defined at https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
@@ -18,7 +18,11 @@ export interface AuthResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-    user = new Subject<User>();
+    //previously used a normal Subject, now switching to a BehaviorSubject
+    //user = new Subject<User>();
+    //let's us get access to the previously emitted User upon subscription, rather than only the next emitted user
+    user = new BehaviorSubject<User>(null);
+
     constructor(private http: HttpClient) { }
 
     //check out https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
