@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { User } from './user.model';
 
 //defined at https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
 //not a requirement of Angular, but makes life easier to have it defined in an interface
@@ -17,7 +18,7 @@ export interface AuthResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-
+    user = new Subject<User>();
     constructor(private http: HttpClient) { }
 
     //check out https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
@@ -33,7 +34,16 @@ export class AuthService {
                 returnSecureToken: true
             }
         ).pipe(
-            catchError(this.handleError)
+            catchError(this.handleError),
+            //allows us to step into the observable chain without changing or stopping it
+            //just allows us to execute some code using the response data, in this case AuthResponseData
+            tap(responseData => {
+                this.handleAuthentication(
+                    responseData.email, 
+                    responseData.localId, 
+                    responseData.idToken, 
+                    +responseData.expiresIn);
+            })
         );
     }
 
@@ -46,8 +56,21 @@ export class AuthService {
                 returnSecureToken: true
             }
         ).pipe(
-            catchError(this.handleError)
+            catchError(this.handleError),
+            tap(responseData => {
+                this.handleAuthentication(
+                    responseData.email, 
+                    responseData.localId, 
+                    responseData.idToken, 
+                    +responseData.expiresIn);
+            })
         )
+    }
+
+    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        const user = new User(email, userId, token, expirationDate);
+        this.user.next(user);
     }
 
     private handleError(errorResponse: HttpErrorResponse) {
