@@ -1,15 +1,12 @@
 import { RecipesModule } from './recipes/recipes.module';
 import { AuthComponent } from './auth/auth.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ErrorPageComponent } from './error-page/error-page.component';
 import { AppRoutingModule } from './app-routing.module';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { NoRecipeSelectedComponent } from './recipes/no-recipe-selected/no-recipe-selected.component';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
@@ -18,9 +15,6 @@ import { CoreModule } from './core.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    ErrorPageComponent,
-    WelcomeComponent,
-    NoRecipeSelectedComponent,
     AuthComponent
   ],
   imports: [
