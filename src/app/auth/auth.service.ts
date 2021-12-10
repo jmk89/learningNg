@@ -4,6 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 //defined at https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
 //not a requirement of Angular, but makes life easier to have it defined in an interface
@@ -33,7 +34,7 @@ export class AuthService {
     //Post request yields response of the AuthResponseData
     signup(email: string, password: string) {
         return this.http.post<AuthResponseData>(
-            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCmN3uD-8g8DD4Yt4Q8bDCosC46y7QBO6A',
+            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
             {
                 email: email,
                 password: password,
@@ -55,7 +56,7 @@ export class AuthService {
 
     login(email: string, password: string) {
         return this.http.post<AuthResponseData>(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCmN3uD-8g8DD4Yt4Q8bDCosC46y7QBO6A",
+            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + environment.firebaseAPIKey,
             {
                 email: email,
                 password: password,
