@@ -1,12 +1,9 @@
 import { RecipesModule } from './recipes/recipes.module';
 import { RecipeService } from 'src/app/services/recipe.service';
-import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 import { AlertComponent } from './shared/alert/alert.component';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RecipeResolver } from './recipes/recipe-detail/recipe-resolver.service';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -19,19 +16,16 @@ import { NoRecipeSelectedComponent } from './recipes/no-recipe-selected/no-recip
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { ShoppingListService } from './services/shopping-list.service';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    DropdownDirective,
     ErrorPageComponent,
     WelcomeComponent,
     NoRecipeSelectedComponent,
-    AuthComponent,
-    LoadingSpinnerComponent,
-    AlertComponent,
-    PlaceholderDirective
+    AuthComponent
   ],
   imports: [
     BrowserModule, //should only be imported in app module, just once
@@ -42,7 +36,8 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule //HeaderComponent is using dropdownDirective, so need to import SharedModule here
   ],
   providers: [
     RecipeResolver, 
@@ -54,9 +49,6 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
       multi: true
     }
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    AlertComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
