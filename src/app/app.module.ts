@@ -17,8 +17,8 @@ import { AuthModule } from './auth/auth.module';
   ],
   imports: [
     BrowserModule, //should only be imported in app module, just once
-    AuthModule,
-    ShoppingListModule,
+    //AuthModule,
+    //ShoppingListModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
