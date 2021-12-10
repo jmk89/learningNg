@@ -23,7 +23,7 @@ import { LoggingService } from '../logging.service';
         FormsModule,
         ShoppingListRoutingModule
     ],
-    providers: [LoggingService]
+    // providers: [LoggingService]
 })
 export class ShoppingListModule {
 
