@@ -1,8 +1,7 @@
-//no declarator for typescript models
-
 import { Ingredient } from "../shared/ingredient.model";
 
 //essentially just a class anyways
+//no declarator for typescript models
 export class Recipe {
     // public id: number;
     public name: string;

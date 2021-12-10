@@ -1,4 +1,4 @@
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { ShoppingListService } from './../../services/shopping-list.service';
 import { Ingredient } from '../../shared/ingredient.model';

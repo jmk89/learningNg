@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { RecipeService } from "src/app/services/recipe.service";
 import { Recipe } from "../recipe.model";
 
-
 @Injectable()
 export class RecipeResolver implements Resolve<Recipe> {
 
