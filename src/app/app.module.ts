@@ -1,4 +1,3 @@
-import { RecipesModule } from './recipes/recipes.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,9 +17,6 @@ import { AuthModule } from './auth/auth.module';
   ],
   imports: [
     BrowserModule, //should only be imported in app module, just once
-    RecipesModule, //note this is imported before AppRouting
-    //need to resolve the routes in RecipesModule before AppRouting,
-    //otherwise AppRouting Wildcard will go to pageNotFound
     AuthModule,
     ShoppingListModule,
     AppRoutingModule,
