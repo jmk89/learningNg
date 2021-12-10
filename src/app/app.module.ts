@@ -38,11 +38,13 @@ import { ShoppingListService } from './services/shopping-list.service';
   ],
   imports: [
     BrowserModule, //should only be imported in app module, just once
+    RecipesModule, //note this is imported before AppRouting
+    //need to resolve the routes in RecipesModule before AppRouting,
+    //otherwise AppRouting Wildcard will go to pageNotFound
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
-    RecipesModule
+    HttpClientModule
   ],
   providers: [
     RecipeResolver, 
