@@ -1,4 +1,4 @@
-import { ShoppingListRoutingModule } from './shopping-edit/shopping-list-routing.module';
+import { ShoppingListRoutingModule } from './shopping-list-routing.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
