@@ -1,9 +1,6 @@
 import { RecipesModule } from './recipes/recipes.module';
-import { RecipeService } from 'src/app/services/recipe.service';
-import { AlertComponent } from './shared/alert/alert.component';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RecipeResolver } from './recipes/recipe-detail/recipe-resolver.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -13,10 +10,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NoRecipeSelectedComponent } from './recipes/no-recipe-selected/no-recipe-selected.component';
-import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { ShoppingListService } from './services/shopping-list.service';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core.module';
 
 @NgModule({
   declarations: [
@@ -37,17 +33,8 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    SharedModule //HeaderComponent is using dropdownDirective, so need to import SharedModule here
-  ],
-  providers: [
-    RecipeResolver, 
-    ShoppingListService,
-    RecipeService,
-    {
-      provide: HTTP_INTERCEPTORS, 
-      useClass: AuthInterceptorService, 
-      multi: true
-    }
+    SharedModule, //HeaderComponent is using dropdownDirective, so need to import SharedModule here
+    CoreModule //this is providing services now
   ],
   bootstrap: [AppComponent]
 })
