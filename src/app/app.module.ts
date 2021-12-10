@@ -11,8 +11,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,13 +18,12 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { NoRecipeSelectedComponent } from './recipes/no-recipe-selected/no-recipe-selected.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { ShoppingListService } from './services/shopping-list.service';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
     DropdownDirective,
     ErrorPageComponent,
     WelcomeComponent,
@@ -41,6 +38,7 @@ import { ShoppingListService } from './services/shopping-list.service';
     RecipesModule, //note this is imported before AppRouting
     //need to resolve the routes in RecipesModule before AppRouting,
     //otherwise AppRouting Wildcard will go to pageNotFound
+    ShoppingListModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
