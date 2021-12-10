@@ -1,4 +1,4 @@
-import { RouterModule, Routes } from "@angular/router";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { NgModule } from '@angular/core';
 import { ErrorPageComponent } from './error-page/error-page.component';
 
@@ -22,7 +22,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules})
     ],
     exports: [RouterModule]
 })
