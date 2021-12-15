@@ -26,9 +26,10 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    StoreModule.forRoot({shoppingList: shoppingListReducer}),
     SharedModule, //HeaderComponent is using dropdownDirective, so need to import SharedModule here
-    CoreModule, //this is providing services now
-    StoreModule.forRoot({shoppingList: shoppingListReducer})
+    CoreModule //this is providing services now
+    
   ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]

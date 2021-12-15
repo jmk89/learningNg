@@ -1,4 +1,4 @@
-import { Ingredient } from "../../shared/ingredient.model";
+import { Ingredient } from "src/app/shared/ingredient.model";
 import * as ShoppingListActions from "./shopping-list.actions";
 
 const initialState = {
@@ -17,5 +17,7 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
                 //new array with old array elements
                 ingredients: [...state.ingredients, action.payload]
             };
+        default:
+            return state;
     }
 }
