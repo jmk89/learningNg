@@ -41,7 +41,9 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     const value = form.value;
     let newIngredient = new Ingredient(value.name, value.amount);
     if (this.editMode) {
-      this.shoppingListService.updateIngredient(this.editedItemIndex, newIngredient)
+      //using ngrx store now
+      //this.shoppingListService.updateIngredient(this.editedItemIndex, newIngredient)
+      this.store.dispatch(new ShoppingListActions.UpdateIngredient({index: this.editedItemIndex, ingredient: newIngredient}))
     } else {
       //commented out when moving from service to ngrx state management
       //this.shoppingListService.addIngredient(newIngredient);
@@ -57,7 +59,9 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
-    this.shoppingListService.deleteIngredient(this.editedItemIndex);
+    //using ngrx store now
+    //this.shoppingListService.deleteIngredient(this.editedItemIndex);
+    this.store.dispatch(new ShoppingListActions.DeleteIngredient(this.editedItemIndex));
     this.onClear();
   }
 
