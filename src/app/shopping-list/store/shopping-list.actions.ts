@@ -8,5 +8,7 @@ export class AddIngredient implements Action {
     //enhances type safety and protects redux pattern
     readonly type = ADD_INGREDIENT;
     //payload not required by Action interface
-    payload: Ingredient;
+    constructor(public payload: Ingredient) {
+
+    }
 }
