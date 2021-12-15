@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { Recipe } from "../recipes/recipe.model";
 import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from './shopping-list.service';
+import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer';
 
 @Injectable({providedIn: 'root'})
 export class RecipeService {
@@ -34,7 +35,7 @@ export class RecipeService {
 
     private recipes: Recipe[] = [];
 
-    constructor(private shoppingListService: ShoppingListService, private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) {}
+    constructor(private shoppingListService: ShoppingListService, private store: Store<fromShoppingList.AppState>) {}
 
     getRecipes() {
         //ok so in javascript, returning an Array like this actually returns the reference to the array.
