@@ -10,6 +10,8 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
 import { AuthModule } from './auth/auth.module';
 import { LoggingService } from './logging.service';
+import { StoreModule } from "@ngrx/store"
+import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { LoggingService } from './logging.service';
     FormsModule,
     HttpClientModule,
     SharedModule, //HeaderComponent is using dropdownDirective, so need to import SharedModule here
-    CoreModule //this is providing services now
+    CoreModule, //this is providing services now
+    StoreModule.forRoot({shoppingList: shoppingListReducer})
   ],
   bootstrap: [AppComponent],
   // providers: [LoggingService]
