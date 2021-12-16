@@ -64,6 +64,20 @@ export function shoppingListReducer(
                     return index !== action.payload; 
                 })
             };
+        case ShoppingListActions.START_EDIT:
+            return {
+                ...state,
+                editedIngredientIndex: action.payload,
+                //uses the spread operator here to copy the ingredients array
+                //in the store. Don't want to actually return the store array
+                editedIngredient: {...state.ingredients[action.payload]}
+            };
+        case ShoppingListActions.STOP_EDIT:
+            return {
+                ...state,
+                editedIngredientIndex: null,
+                editedIngredient: -1
+            };
         default:
             return state;
     }
