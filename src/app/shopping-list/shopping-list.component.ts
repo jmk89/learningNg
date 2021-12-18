@@ -1,5 +1,4 @@
 import { Ingredient } from 'src/app/shared/ingredient.model';
-import { ShoppingListService } from './../services/shopping-list.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoggingService } from '../logging.service';
@@ -16,7 +15,6 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Observable<{ ingredients: Ingredient[] }>;
 
   constructor(
-    private shoppingListService: ShoppingListService, 
     private loggingService: LoggingService,
     private store: Store<fromShoppingList.AppState>
   ) { }
