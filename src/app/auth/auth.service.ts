@@ -25,8 +25,9 @@ export interface AuthResponseData {
 export class AuthService {
     //previously used a normal Subject, now switching to a BehaviorSubject
     //user = new Subject<User>();
-    //let's us get access to the previously emitted User upon subscription, rather than only the next emitted user
-    user = new BehaviorSubject<User>(null);
+    // Behavior Subject - 
+    // Can access the prev emitted User upon subscription, rather than only the next emitted user
+    //user = new BehaviorSubject<User>(null);
     private tokenExpirationTimer: any;
 
     constructor(
