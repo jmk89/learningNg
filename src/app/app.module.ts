@@ -11,7 +11,7 @@ import { CoreModule } from './core.module';
 import { AuthModule } from './auth/auth.module';
 import { LoggingService } from './logging.service';
 import { StoreModule } from "@ngrx/store"
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+import * as fromApp from './store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer}),
+    StoreModule.forRoot(fromApp.appReducer),
     SharedModule, //HeaderComponent is using dropdownDirective, so need to import SharedModule here
     CoreModule //this is providing services now
     
