@@ -15,9 +15,8 @@ import * as fromShoppingList from '../store/shopping-list.reducer';
 export class ShoppingEditComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   editMode = false;
-  editedItemIndex: number;
   editedItem: Ingredient;
-  @ViewChild('f') shoppingListForm: NgForm;
+  @ViewChild('f', {static: false}) shoppingListForm: NgForm;
 
   constructor(
     private shoppingListService: ShoppingListService, 
@@ -33,8 +32,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
           this.shoppingListForm.setValue({
             //apparently don't have to use string notation, even though it's a key value pair
             name: this.editedItem.name,
-            'amount': this.editedItem.amount
-          })
+            amount: this.editedItem.amount
+          });
         } else {
           this.editMode = false;
         }
@@ -59,7 +58,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     if (this.editMode) {
       //using ngrx store now
       //this.shoppingListService.updateIngredient(this.editedItemIndex, newIngredient)
-      this.store.dispatch(new ShoppingListActions.UpdateIngredient({index: this.editedItemIndex, ingredient: newIngredient}))
+      this.store.dispatch(new ShoppingListActions.UpdateIngredient(newIngredient))
     } else {
       //commented out when moving from service to ngrx state management
       //this.shoppingListService.addIngredient(newIngredient);
@@ -70,15 +69,15 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   }
 
   onClear() {
-    this.editMode = false;
     this.shoppingListForm.reset();
+    this.editMode = false;
     this.store.dispatch(new ShoppingListActions.StopEdit());
   }
 
   onDelete() {
     //using ngrx store now
     //this.shoppingListService.deleteIngredient(this.editedItemIndex);
-    this.store.dispatch(new ShoppingListActions.DeleteIngredient(this.editedItemIndex));
+    this.store.dispatch(new ShoppingListActions.DeleteIngredient());
     this.onClear();
   }
 

@@ -12,10 +12,7 @@ export interface State {
 }
 
 const initialState: State = {
-    ingredients: [
-        new Ingredient('Apples', 5),
-        new Ingredient('Tomatoes', 10)
-    ],
+    ingredients: [new Ingredient('Apples', 5),new Ingredient('Tomatoes', 10)],
     editedIngredient: null,
     editedIngredientIndex: -1
 };
@@ -42,27 +39,30 @@ export function shoppingListReducer(
             //this follows the redux pattern of immutable objects
             //don't update existing, create copies and update those copies
             //then update the store with new state
-            const ingredient = state.ingredients[action.payload.index]
+            const ingredient = state.ingredients[state.editedIngredientIndex]
             const updatedIngredient = {
                 ...ingredient,
-                ...action.payload.ingredient
+                ...action.payload
             };
             const updatedIngredients = [...state.ingredients]
-            updatedIngredients[action.payload.index] = updatedIngredient;
+            updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
             return {
                 ...state,
-                ingredients: updatedIngredients
+                ingredients: updatedIngredients,
+                editedIngredientIndex: -1,
+                editedIngredient: null
             };
         case ShoppingListActions.DELETE_INGREDIENT:
-            
             return {
                 ...state,
                 //filter is vanilla js
                 ingredients: state.ingredients.filter((ingredient, index) => {
                     //return false to filter out
                     //return true to keep item
-                    return index !== action.payload; 
-                })
+                    return index !== state.editedIngredientIndex; 
+                }),
+                editedIngredientIndex: -1,
+                editedIngredient: null
             };
         case ShoppingListActions.START_EDIT:
             return {
@@ -75,8 +75,8 @@ export function shoppingListReducer(
         case ShoppingListActions.STOP_EDIT:
             return {
                 ...state,
-                editedIngredientIndex: null,
-                editedIngredient: -1
+                editedIngredientIndex: -1,
+                editedIngredient: null
             };
         default:
             return state;
