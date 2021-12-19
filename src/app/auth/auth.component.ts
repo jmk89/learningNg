@@ -1,10 +1,8 @@
 import { PlaceholderDirective } from './../shared/placeholder/placeholder.directive';
 import { AlertComponent } from './../shared/alert/alert.component';
 import { Subscription } from 'rxjs';
-import { AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
 import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';

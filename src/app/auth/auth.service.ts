@@ -1,7 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { throwError } from 'rxjs';
-import { User } from './user.model';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
