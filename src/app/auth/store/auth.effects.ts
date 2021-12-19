@@ -1,3 +1,4 @@
+import { AuthService } from './../auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -67,6 +68,9 @@ export class AuthEffects {
                     returnSecureToken: true
                 }
             ).pipe(
+                tap(responseData => {
+                    this.authService.setLogoutTimer(+responseData.expiresIn * 1000);
+                }),
                 map(resData => {
                     return handleAuthentication(+resData.expiresIn, resData.email, resData.localId, resData.idToken);
                 }),
@@ -89,6 +93,9 @@ export class AuthEffects {
                     returnSecureToken: true
                 }
             ).pipe(
+                tap(responseData => {
+                    this.authService.setLogoutTimer(+responseData.expiresIn * 1000);
+                }),
                 map(resData => {
                     return handleAuthentication(+resData.expiresIn, resData.email, resData.localId, resData.idToken);
                 }),
@@ -126,6 +133,9 @@ export class AuthEffects {
             if (loadedUser.token) {
                 //this.user.next(loadedUser);
                 //removing the usage of behaviorSubject in favor of dispatching an ngrx action
+
+                const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+                this.authService.setLogoutTimer(expirationDuration)
                 return new AuthActions.AuthenticateSuccess({
                     email: loadedUser.email,
                     userID: loadedUser.id,
@@ -144,8 +154,9 @@ export class AuthEffects {
         pipe(
             ofType(AuthActions.LOGOUT),
             tap(() => {
-                console.log("authLogout Effect")
+                this.authService.clearLogoutTimer();
                 localStorage.removeItem('userData');
+                this.router.navigate(['/auth']);
         })
     );
     
@@ -154,7 +165,8 @@ export class AuthEffects {
     constructor(
         private actions$: Actions, 
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private authService: AuthService
     ) { }
 
 }
