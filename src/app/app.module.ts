@@ -1,3 +1,4 @@
+import { AuthEffects } from './auth/store/auth.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { LoggingService } from './logging.service';
 import { StoreModule } from "@ngrx/store"
 import * as fromApp from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import * as fromApp from './store/app.reducer';
     FormsModule,
     HttpClientModule,
     StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects]),
     SharedModule, //HeaderComponent is using dropdownDirective, so need to import SharedModule here
     CoreModule //this is providing services now
     
