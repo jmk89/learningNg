@@ -36,52 +36,6 @@ export class AuthService {
         private store: Store<fromApp.AppState>
     ) { }
 
-    //check out https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
-    //to see why the post request is constructed this way. The inline javascript object
-    //matches the Request Body Payload in order to submit a signup
-    //Post request yields response of the AuthResponseData
-    signup(email: string, password: string) {
-        return this.http.post<AuthResponseData>(
-            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
-            {
-                email: email,
-                password: password,
-                returnSecureToken: true
-            }
-        ).pipe(
-            catchError(this.handleError),
-            //allows us to step into the observable chain without changing or stopping it
-            //just allows us to execute some code using the response data, in this case AuthResponseData
-            tap(responseData => {
-                this.handleAuthentication(
-                    responseData.email, 
-                    responseData.localId, 
-                    responseData.idToken, 
-                    +responseData.expiresIn);
-            })
-        );
-    }
-
-    login(email: string, password: string) {
-        return this.http.post<AuthResponseData>(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + environment.firebaseAPIKey,
-            {
-                email: email,
-                password: password,
-                returnSecureToken: true
-            }
-        ).pipe(
-            catchError(this.handleError),
-            tap(responseData => {
-                this.handleAuthentication(
-                    responseData.email, 
-                    responseData.localId, 
-                    responseData.idToken, 
-                    +responseData.expiresIn);
-            })
-        )
-    }
-
     autoLogin() {
         const userData: {
             email: string,
@@ -112,7 +66,6 @@ export class AuthService {
         //this.user.next(null);
         this.store.dispatch(new AuthActions.Logout());
         localStorage.removeItem('userData');
-        this.router.navigate(['/auth']);
         if (this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer);
         }
@@ -121,7 +74,8 @@ export class AuthService {
 
     autoLogout(expirationDuration: number) {
         this.tokenExpirationTimer = setTimeout(() => {
-            this.logout();
+            //this.logout();
+            console.log("auto logout")
         }, expirationDuration)
     }
 
