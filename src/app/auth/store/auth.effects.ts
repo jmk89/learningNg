@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -34,23 +35,52 @@ export class AuthEffects {
             ).pipe(
                 map(resData => {
                     const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-                    return of(new AuthActions.Login({
+                    return new AuthActions.Login({
                         email: resData.email,
                         userID: resData.localId,
                         token: resData.idToken,
                         expirationDate: expirationDate
-                    }));
+                    });
                 }),
-                catchError(error => {
-                    return of();
+                catchError(errorResponse => {
+                    let errorMessage = "An unknown error occurred"
+                    //check if the errorResponse has the expected object structure
+                    if (!errorResponse.error || !errorResponse.error.error) {
+                        return of(new AuthActions.LoginFail(errorMessage))
+                    }
+                    switch (errorResponse.error.error.message) {
+                        case 'EMAIL_EXISTS':
+                            errorMessage = "Email already exists"
+                            break;
+                        case 'EMAIL_NOT_FOUND':
+                            errorMessage = "Email doesn't exist"
+                            break;
+                        case 'INVALID_PASSWORD':
+                            errorMessage = "Incorrect password"
+                            break;
+                    }
+                    return of(new AuthActions.LoginFail(errorMessage));
                 }), 
 
             );
             
         }),
     );
+
+    //this is an effect which will not yield a dispatchable action at the end
+    @Effect({dispatch: false})
+    authSuccess = this.actions$.pipe(
+        ofType(AuthActions.LOGIN), 
+        tap(() => {
+            this.router.navigate(['/']);
+        })
+    )
     
     //the $ sign is a convention recommended from ngrx team
-    constructor(private actions$: Actions, private http: HttpClient) { }
+    constructor(
+        private actions$: Actions, 
+        private http: HttpClient,
+        private router: Router
+    ) { }
 
 }
