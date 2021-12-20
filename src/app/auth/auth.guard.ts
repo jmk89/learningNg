@@ -3,18 +3,30 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { AuthService } from './auth.service';
 import { map, take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
 
 @Injectable({providedIn: 'root'})
 export class AuthGuard implements CanActivate {
 
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(
+        private authService: AuthService, 
+        private router: Router,
+        private store: Store<fromApp.AppState>
+        ) {}
 
-    canActivate(route: ActivatedRouteSnapshot, router: RouterStateSnapshot): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
+    canActivate(
+        route: ActivatedRouteSnapshot, 
+        router: RouterStateSnapshot): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
         //returning the user observable isn't quite right, because the canActivate method requires a boolean observable
         //so we use pipe and map to transform the observable to boolean
-        return this.authService.user
+        //return this.authService.user
+        return this.store.select('auth')
         .pipe(
             take(1), //just need to listen once, could cause unknown effects if listening all the time
+            map(authState => {
+                return authState.user;
+            }),
             map(user => {
                 const isAuth = !!user;
                 if (isAuth) {

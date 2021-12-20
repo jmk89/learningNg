@@ -1,8 +1,10 @@
+import * as ShoppingListActions from './../shopping-list/store/shopping-list.actions';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { Recipe } from "../recipes/recipe.model";
 import { Ingredient } from "../shared/ingredient.model";
-import { ShoppingListService } from './shopping-list.service';
+import * as fromApp from '../store/app.reducer';
 
 @Injectable({providedIn: 'root'})
 export class RecipeService {
@@ -32,7 +34,7 @@ export class RecipeService {
 
     private recipes: Recipe[] = [];
 
-    constructor(private shoppingListService: ShoppingListService) {}
+    constructor(private store: Store<fromApp.AppState>) {}
 
     getRecipes() {
         //ok so in javascript, returning an Array like this actually returns the reference to the array.
@@ -68,7 +70,9 @@ export class RecipeService {
     }
 
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
-        this.shoppingListService.addIngredients(ingredients);
+        // commenting service out, now using ngrx
+        //this.shoppingListService.addIngredients(ingredients);
+        this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients))
     }
 
     deleteRecipe(index: number) {

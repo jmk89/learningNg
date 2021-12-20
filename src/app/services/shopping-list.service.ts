@@ -32,6 +32,8 @@ export class ShoppingListService {
     }
 
     getIngredient(index: number): Ingredient {
+        console.log(index)
+        console.log(this.ingredients)
         return this.ingredients[index];
     }
 
