@@ -1,3 +1,4 @@
+import { StoreRecipes } from './../recipes/store/recipe.actions';
 import { DataStorageService } from './../services/data-storage.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
@@ -6,7 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
 import { map } from 'rxjs/operators';
-import * as RecipeActions from '../recipes/store/recipe.actions';
+import * as RecipesActions from '../recipes/store/recipe.actions';
 
 @Component({
   selector: 'app-header',
@@ -32,7 +33,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSaveData() {
-    this.dataStorageService.storeRecipes();
+    //this.dataStorageService.storeRecipes();
+    this.store.dispatch(new RecipesActions.StoreRecipes());
   }
 
   onFetchData() {
@@ -41,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //recipesResolverService could subscribe
     //we are subscribing here just to satisfy observables
     //this.dataStorageService.fetchRecipes().subscribe();
-    this.store.dispatch(new RecipeActions.FetchRecipes());
+    this.store.dispatch(new RecipesActions.FetchRecipes());
   }
 
   onLogout() {
