@@ -12,7 +12,8 @@ import { CoreModule } from './core.module';
 import { StoreModule } from "@ngrx/store"
 import * as fromApp from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    StoreRouterConnectingModule.forRoot(),
     SharedModule, //HeaderComponent is using dropdownDirective, so need to import SharedModule here
     CoreModule //this is providing services now
     
